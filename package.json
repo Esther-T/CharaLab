@@ -13,7 +13,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": ".",
+  "homepage": "https://esther-t.github.io/CharaLab/",
   "browserslist": {
     "production": [
       ">0.2%",
