@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { stripDashes } from "../utils/text";
 
 function parseConversation(raw) {
   const lines = raw.split("\n").map(l => l.trim()).filter(Boolean);
@@ -77,6 +78,8 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
   };
 
   const currentSlot = slots[activeSlot];
+  const sanitizedQuestion = stripDashes(currentSlot?.question || "");
+  const sanitizedAnswer = stripDashes(currentSlot?.answer || "");
 
   return (
     <div>
@@ -86,7 +89,6 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
           fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
           color: "var(--accent)", marginBottom: 16, fontWeight: 500,
         }}>
-          <span style={{ width: 20, height: 1, background: "var(--accent)", display: "inline-block" }} />
           Step 3 of 4
         </div>
         <h1 style={{
@@ -97,7 +99,7 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
         }}>
           Paste the conversations
         </h1>
-        <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7, maxWidth: 520 }}>
+        <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, maxWidth: 520 }}>
           For each question, paste the full conversation from your AI platform.
           We'll auto-detect the format and extract the response.
         </p>
@@ -110,7 +112,7 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
             onClick={() => setPasteMode(mode)}
             style={{
               background: pasteMode === mode ? "var(--accent)" : "var(--surface)",
-              color: pasteMode === mode ? "#fff" : "var(--text-muted)",
+              color: pasteMode === mode ? "#fff" : "var(--text)",
               border: `1px solid ${pasteMode === mode ? "var(--accent)" : "var(--border-strong)"}`,
               borderRadius: "var(--radius-sm)",
               padding: "6px 16px",
@@ -162,7 +164,7 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
               Question {activeSlot + 1} of {slots.length}
             </p>
             <p style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.5 }}>
-              {currentSlot.question}
+              {sanitizedQuestion}
             </p>
           </div>
 
@@ -196,7 +198,7 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
                       ✓ response extracted
                     </p>
                     <p style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.5 }}>
-                      {currentSlot.answer.length > 200 ? currentSlot.answer.slice(0, 200) + "..." : currentSlot.answer}
+                      {sanitizedAnswer.length > 200 ? sanitizedAnswer.slice(0, 200) + "..." : sanitizedAnswer}
                     </p>
                   </div>
                 )}
@@ -258,7 +260,7 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
           style={{
             background: "none", border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius-md)", padding: "12px 22px",
-            fontSize: 14, color: "var(--text-muted)", cursor: "pointer",
+            fontSize: 14, color: "var(--text)", cursor: "pointer",
             fontFamily: "var(--font-mono)",
           }}
         >

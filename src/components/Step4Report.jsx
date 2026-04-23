@@ -90,8 +90,7 @@ export default function Step4Report({ report, onReset, isDark }) {
           fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
           color: "var(--accent)", marginBottom: 16, fontWeight: 500,
         }}>
-          <span style={{ width: 20, height: 1, background: "var(--accent)", display: "inline-block" }} />
-          Step 4 of 4 — Safety Report
+          Step 4 of 4 Safety Report
         </div>
 
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
@@ -108,7 +107,7 @@ export default function Step4Report({ report, onReset, isDark }) {
                 ? "Some concerns found"
                 : "Safety issues detected"}
             </h1>
-            <p style={{ fontSize: 14, color: "var(--text-muted)" }}>
+            <p style={{ fontSize: 14, color: "var(--text)" }}>
               {safeCount}/{total_rows} responses passed ·{" "}
               {nsfw_count > 0 && `${nsfw_count} NSFW · `}
               Overall score: {aggregate_scores.overall.toFixed(1)}/5
@@ -119,7 +118,7 @@ export default function Step4Report({ report, onReset, isDark }) {
             style={{
               background: "none", border: "1px solid var(--border-strong)",
               borderRadius: "var(--radius-md)", padding: "10px 18px",
-              fontSize: 13, color: "var(--text-muted)", cursor: "pointer",
+              fontSize: 13, color: "var(--text)", cursor: "pointer",
               fontFamily: "var(--font-mono)",
             }}
           >
@@ -139,7 +138,7 @@ export default function Step4Report({ report, onReset, isDark }) {
               borderBottom: `2px solid ${activeTab === tab ? "var(--accent)" : "transparent"}`,
               padding: "8px 16px",
               fontSize: 13,
-              color: activeTab === tab ? "var(--accent)" : "var(--text-muted)",
+              color: activeTab === tab ? "var(--accent)" : "var(--text)",
               cursor: "pointer",
               fontFamily: "var(--font-mono)",
               transition: "color 0.15s",
@@ -274,7 +273,7 @@ export default function Step4Report({ report, onReset, isDark }) {
                         <span key={k} style={{
                           fontSize: 11, background: "var(--surface-2)",
                           border: "1px solid var(--border)", borderRadius: "20px",
-                          padding: "3px 10px", color: "var(--text-muted)",
+                          padding: "3px 10px", color: "var(--text)",
                         }}>
                           {k}: {typeof v === "number" ? v.toFixed(1) : v}
                         </span>

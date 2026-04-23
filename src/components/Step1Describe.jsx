@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { stripDashes } from "../utils/text";
 
 const EXAMPLES = [
   "A mysterious ancient vampire who gives life advice from centuries of experience. They're charming, witty, and slightly morbid.",
@@ -30,7 +31,6 @@ export default function Step1Describe({ onSubmit, loading, isDark }) {
           marginBottom: 16,
           fontWeight: 500,
         }}>
-          <span style={{ width: 20, height: 1, background: "var(--accent)", display: "inline-block" }} />
           Step 1 of 4
         </div>
         <h1 style={{
@@ -46,7 +46,7 @@ export default function Step1Describe({ onSubmit, loading, isDark }) {
         </h1>
         <p style={{
           fontSize: 14,
-          color: "var(--text-muted)",
+          color: "var(--text)",
           lineHeight: 1.7,
           maxWidth: 520,
         }}>
@@ -124,7 +124,7 @@ export default function Step1Describe({ onSubmit, loading, isDark }) {
         </button>
 
         {loading && (
-          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+          <span style={{ fontSize: 12, color: "var(--text)" }}>
             This takes ~5 seconds
           </span>
         )}
@@ -135,35 +135,39 @@ export default function Step1Describe({ onSubmit, loading, isDark }) {
           Try an example
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {EXAMPLES.map((ex, i) => (
-            <button
-              key={i}
-              onClick={() => setDesc(ex)}
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: "var(--radius-md)",
-                padding: "12px 16px",
-                textAlign: "left",
-                fontSize: 13,
-                color: "var(--text-muted)",
-                fontFamily: "var(--font-mono)",
-                cursor: "pointer",
-                lineHeight: 1.5,
-                transition: "all 0.15s ease",
-              }}
-              onMouseEnter={e => {
-                e.target.style.borderColor = "var(--border-strong)";
-                e.target.style.color = "var(--text)";
-              }}
-              onMouseLeave={e => {
-                e.target.style.borderColor = "var(--border)";
-                e.target.style.color = "var(--text-muted)";
-              }}
-            >
-              "{ex.length > 90 ? ex.slice(0, 90) + "..." : ex}"
-            </button>
-          ))}
+          {EXAMPLES.map((ex, i) => {
+            const sanitized = stripDashes(ex);
+            const preview = sanitized.length > 90 ? sanitized.slice(0, 90) + "..." : sanitized;
+            return (
+              <button
+                key={i}
+                onClick={() => setDesc(sanitized)}
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "12px 16px",
+                  textAlign: "left",
+                  fontSize: 13,
+                  color: "var(--text)",
+                  fontFamily: "var(--font-mono)",
+                  cursor: "pointer",
+                  lineHeight: 1.5,
+                  transition: "all 0.15s ease",
+                }}
+                onMouseEnter={e => {
+                  e.target.style.borderColor = "var(--border-strong)";
+                  e.target.style.color = "var(--text)";
+                }}
+                onMouseLeave={e => {
+                  e.target.style.borderColor = "var(--border)";
+                  e.target.style.color = "var(--text)";
+                }}
+              >
+                "{preview}"
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

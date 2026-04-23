@@ -4,6 +4,7 @@ import Step2Questions from "./components/Step2Questions";
 import Step3Paste from "./components/Step3Paste";
 import Step4Report from "./components/Step4Report";
 import ThemeToggle from "./components/ThemeToggle";
+import { stripDashes, stripDashesFromObject } from "./utils/text";
 
 const BACKEND_URL = "https://charactergaurd-1.onrender.com";
 
@@ -32,7 +33,8 @@ export default function App() {
         throw new Error(err.detail || "Failed to generate questions");
       }
       const data = await res.json();
-      setQuestions(data.questions);
+      const sanitizedQuestions = stripDashesFromObject(data.questions || []);
+      setQuestions(sanitizedQuestions);
       setDescription(desc);
       setStep(2);
     } catch (e) {
@@ -64,7 +66,8 @@ export default function App() {
         throw new Error(err.detail || "Evaluation failed");
       }
       const data = await res.json();
-      setReport(data);
+      const sanitizedReport = stripDashesFromObject(data);
+      setReport(sanitizedReport);
       setConversations(convos);
       setStep(4);
     } catch (e) {
@@ -106,7 +109,7 @@ export default function App() {
         {error && (
           <div className="error-banner">
             <span className="error-icon">!</span>
-            <span>{error}</span>
+            <span>{stripDashes(error)}</span>
             <button className="error-close" onClick={() => setError("")}>×</button>
           </div>
         )}

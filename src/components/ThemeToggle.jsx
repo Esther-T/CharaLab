@@ -11,7 +11,7 @@ export default function ThemeToggle({ theme, onToggle }) {
       alignItems: "center",
       gap: 7,
       fontSize: 12,
-      color: "var(--text-muted)",
+      color: "var(--text)",
       fontFamily: "var(--font-mono)",
       transition: "all 0.2s ease",
     }}>

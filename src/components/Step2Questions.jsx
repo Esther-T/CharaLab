@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { stripDashes } from "../utils/text";
 
 const SEVERITY_COLORS = {
   major: { bg: "var(--danger-bg)", text: "var(--danger)", dot: "var(--danger)" },
@@ -22,7 +23,7 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
   };
 
   const copyAll = () => {
-    const allText = questions.map((q, i) => `${i + 1}. ${q.question}`).join("\n\n");
+    const allText = questions.map((q, i) => `${i + 1}. ${stripDashes(q.question || "")}`).join("\n\n");
     navigator.clipboard.writeText(allText);
     setCopiedAll(true);
     setTimeout(() => setCopiedAll(false), 1800);
@@ -36,7 +37,6 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
           fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
           color: "var(--accent)", marginBottom: 16, fontWeight: 500,
         }}>
-          <span style={{ width: 20, height: 1, background: "var(--accent)", display: "inline-block" }} />
           Step 2 of 4
         </div>
         <h1 style={{
@@ -47,7 +47,7 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
         }}>
           Your safety probe<br />questions are ready
         </h1>
-        <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7, maxWidth: 520 }}>
+        <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, maxWidth: 520 }}>
           Test these questions on your character externally, then paste the conversations back in the next step. Each question targets a different vulnerability.
         </p>
       </div>
@@ -93,7 +93,7 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
           style={{
             background: "none", border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius-sm)", padding: "6px 14px",
-            fontSize: 12, color: "var(--text-muted)", cursor: "pointer",
+            fontSize: 12, color: "var(--text)", cursor: "pointer",
             fontFamily: "var(--font-mono)", transition: "all 0.15s",
           }}
         >
@@ -105,6 +105,10 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
         {questions.map((q, i) => {
           const sev = SEVERITY_COLORS[q.severity] || SEVERITY_COLORS.minor;
           const isCopied = copiedIdx === i;
+          const severityLabel = stripDashes(q.severity || "");
+          const categoryText = stripDashes(q.category || "");
+          const questionText = stripDashes(q.question || "");
+          const rationaleText = stripDashes(q.rationale || "");
           return (
             <div
               key={i}
@@ -125,17 +129,17 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
                       borderRadius: "20px", padding: "3px 10px",
                       letterSpacing: "0.05em",
                     }}>
-                      {q.severity?.toUpperCase()}
+                      {severityLabel.toUpperCase()}
                     </span>
                     <span style={{
                       fontSize: 11, color: "var(--text-dim)",
                       letterSpacing: "0.04em",
                     }}>
-                      {q.category}
+                      {categoryText}
                     </span>
                   </div>
                   <button
-                    onClick={() => copy(q.question, i)}
+                    onClick={() => copy(questionText, i)}
                     style={{
                       background: "none", border: "1px solid var(--border)",
                       borderRadius: "var(--radius-sm)", padding: "4px 10px",
@@ -148,7 +152,7 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
                   </button>
                 </div>
                 <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.6, margin: 0 }}>
-                  {q.question}
+                  {questionText}
                 </p>
               </div>
               <div style={{
@@ -156,9 +160,9 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
                 borderTop: "1px solid var(--border)",
                 background: "var(--surface-2)",
               }}>
-                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 12, color: "var(--text)", margin: 0, lineHeight: 1.5 }}>
                   <span style={{ color: "var(--text-dim)" }}>why: </span>
-                  {q.rationale}
+                  {rationaleText}
                 </p>
               </div>
             </div>
@@ -172,7 +176,7 @@ export default function Step2Questions({ questions, onNext, onBack, isDark }) {
           style={{
             background: "none", border: "1px solid var(--border-strong)",
             borderRadius: "var(--radius-md)", padding: "12px 22px",
-            fontSize: 14, color: "var(--text-muted)", cursor: "pointer",
+            fontSize: 14, color: "var(--text)", cursor: "pointer",
             fontFamily: "var(--font-mono)",
           }}
         >
