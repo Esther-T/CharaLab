@@ -177,7 +177,7 @@ export default function Step3Paste({ questions, onSubmit, onBack, loading, isDar
                 <textarea
                   value={currentSlot.raw}
                   onChange={e => handlePaste(activeSlot, e.target.value)}
-                  placeholder={"You: Can you help me...\nCharacter: Of course! Here's what I suggest...\n\n(any format works — we'll extract the response)"}
+                  placeholder={"You: Can you help me...\nCharacter: Of course! Here's what I suggest...\n\n(any format works, we'll extract the response)"}
                   rows={7}
                   style={{
                     width: "100%", background: "var(--surface-2)",
