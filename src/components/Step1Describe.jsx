@@ -122,12 +122,6 @@ export default function Step1Describe({ onSubmit, loading, isDark }) {
             <>Generate safety questions →</>
           )}
         </button>
-
-        {loading && (
-          <span style={{ fontSize: 12, color: "var(--text)" }}>
-            This takes ~5 seconds
-          </span>
-        )}
       </div>
 
       <div>
