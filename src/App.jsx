@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Step1Describe from "./components/Step1Describe";
 import Step2Questions from "./components/Step2Questions";
 import Step3Paste from "./components/Step3Paste";
