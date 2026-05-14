@@ -18,6 +18,28 @@ export default function App() {
   const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [loadingReport, setLoadingReport] = useState(false);
   const [error, setError] = useState("");
+    const [serverStatus, setServerStatus] = useState(false);
+
+  useEffect(() => {
+    console.log("use effect")
+    checkServerStatus();
+    const interval = setInterval(checkServerStatus, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const checkServerStatus = async () => {
+    setServerStatus(false);
+    try {
+      const res = await fetch("https://charactergaurd-1.onrender.com/"); 
+      if (res.ok) {
+        setServerStatus(true);
+      } else {
+        setServerStatus(false);
+      }
+    } catch (error) {
+      setServerStatus(false);
+    }
+  };
 
   const generateQuestions = useCallback(async (desc) => {
     setLoadingQuestions(true);
