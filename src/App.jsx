@@ -135,46 +135,52 @@ export default function App() {
             <button className="error-close" onClick={() => setError("")}>×</button>
           </div>
         )}
-        {
-          serverStatus ? 
-          <div className="carousel">
-          {step === 1 && (
-            <Step1Describe
-              onSubmit={generateQuestions}
-              loading={loadingQuestions}
-              isDark={isDark}
-            />
-          )}
-          {step === 2 && (
-            <Step2Questions
-              questions={questions}
-              onNext={() => setStep(3)}
-              onBack={() => setStep(1)}
-              isDark={isDark}
-            />
-          )}
-          {step === 3 && (
-            <Step3Paste
-              questions={questions}
-              onSubmit={runEvaluation}
-              onBack={() => setStep(2)}
-              loading={loadingReport}
-              isDark={isDark}
-            />
-          )}
-          {step === 4 && (
-            <Step4Report
-              report={report}
-              onReset={reset}
-              isDark={isDark}
-            />
-          )}
-        </div>: 
+        
+      <div className="carousel">
+      {
+      serverStatus ? 
+      <>
+      {
+          step === 1 && (
+        <Step1Describe
+          onSubmit={generateQuestions}
+          loading={loadingQuestions}
+          isDark={isDark}
+        />
+      )
+      }
+      </>: 
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <span>The server is starting up. Please wait a moment</span>
-          <Spinner />
-        </div>
-        }
+      <span>The server is starting up. Please wait a moment</span>
+      <Spinner />
+    </div>
+      }
+      {step === 2 && (
+        <Step2Questions
+          questions={questions}
+          onNext={() => setStep(3)}
+          onBack={() => setStep(1)}
+          isDark={isDark}
+        />
+      )}
+      {step === 3 && (
+        <Step3Paste
+          questions={questions}
+          onSubmit={runEvaluation}
+          onBack={() => setStep(2)}
+          loading={loadingReport}
+          isDark={isDark}
+        />
+      )}
+      {step === 4 && (
+        <Step4Report
+          report={report}
+          onReset={reset}
+          isDark={isDark}
+        />
+      )}
+    </div>
+        
         
       </main>
 
