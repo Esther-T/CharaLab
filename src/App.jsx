@@ -135,8 +135,9 @@ export default function App() {
             <button className="error-close" onClick={() => setError("")}>×</button>
           </div>
         )}
-
-        <div className="carousel">
+        {
+          serverStatus ? 
+          <div className="carousel">
           {step === 1 && (
             <Step1Describe
               onSubmit={generateQuestions}
@@ -168,7 +169,13 @@ export default function App() {
               isDark={isDark}
             />
           )}
+        </div>: 
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span>The server is starting up. Please wait a moment</span>
+          <Spinner />
         </div>
+        }
+        
       </main>
 
       <style>{`
@@ -384,6 +391,32 @@ function StepIndicator({ current }) {
           )}
         </div>
       ))}
+    </div>
+  );
+
+}
+
+function Spinner() {
+  return (
+    <div
+      style={{
+        display: "inline-block",
+        width: 14,
+        height: 14,
+        marginLeft: 6,
+        verticalAlign: "middle",
+
+        border: "2px solid rgba(255,255,255,0.3)",
+        borderTop: "2px solid #fff",
+        borderRadius: "50%",
+        animation: "spin 0.7s linear infinite",
+      }}
+    >
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }
