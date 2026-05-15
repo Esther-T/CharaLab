@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/CharaLab/static/js/main.526fb306.js",
+    "main.js": "/CharaLab/static/js/main.ba12298e.js",
     "index.html": "/CharaLab/index.html",
-    "main.526fb306.js.map": "/CharaLab/static/js/main.526fb306.js.map"
+    "main.ba12298e.js.map": "/CharaLab/static/js/main.ba12298e.js.map"
   },
   "entrypoints": [
-    "static/js/main.526fb306.js"
+    "static/js/main.ba12298e.js"
   ]
 }
