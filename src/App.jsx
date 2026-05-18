@@ -138,10 +138,8 @@ export default function App() {
         
       <div className="carousel">
       {
-      serverStatus ? 
-      <>
-      {
-          step === 1 && (
+      
+        step === 1 && serverStatus && (
         <Step1Describe
           onSubmit={generateQuestions}
           loading={loadingQuestions}
@@ -149,12 +147,16 @@ export default function App() {
         />
       )
       }
-      </>: 
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-      <span>The server is starting up. Please wait a moment</span>
-      <Spinner />
-    </div>
+      {
+        step === 1 && !serverStatus &&  (
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span>The server is starting up. Please wait a moment</span>
+          <Spinner />
+        </div>
+        )
       }
+        
+      
       {step === 2 && (
         <Step2Questions
           questions={questions}
@@ -180,7 +182,6 @@ export default function App() {
         />
       )}
     </div>
-        
         
       </main>
 
